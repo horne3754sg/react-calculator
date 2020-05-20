@@ -6,35 +6,69 @@ export default class Calculator extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      expression: 0,
-      operand: '',
+      currentOuput: 0,
+      leftOperand: 0,
+      rightOperand: 0,
+      operator: null,
     }
   }
 
   handleOnClickInput = (keyPress) => {
-    // const keyPressed = e.target.value
-    console.log(keyPress)
+    let currentOuput = this.state.currentOuput
+    if (this.state.operator === null) {
+      let leftOperand = `${this.state.leftOperand || ''}${keyPress}`
+      currentOuput = leftOperand
+      this.setState({ leftOperand })
+    } else {
+      let rightOperand = `${this.state.rightOperand || ''}${keyPress}`
+      currentOuput = rightOperand
+      this.setState({ rightOperand })
+    }
+
+    this.setState({ currentOuput })
   }
 
-  handleOnClickOperand = (keyPress) => {
-    // const keyPressed = e.target.value
-    // this.setState({operand: key})
-    console.log(keyPress)
+  handleOnClickOperator = (keyPress) => {
+    this.setState({ operator: keyPress })
   }
 
   handleOnCalculate = () => {
     console.log('Calculate')
+    let result = this.getResult()
+    this.setState({
+      currentOuput: result,
+      leftOperand: result,
+      rightOperand: 0,
+      operator: null,
+    })
   }
 
   handleOnClear = () => {
-    console.log('Clear')
-    this.setState({ expression: 0 })
+    this.setState({
+      currentOuput: 0,
+      leftOperand: 0,
+      rightOperand: 0,
+      operator: null,
+    })
+  }
+
+  getResult = () => {
+    const { leftOperand, rightOperand, operator } = this.state
+    if (operator === 'add') {
+      return parseInt(leftOperand) + parseInt(rightOperand)
+    } else if (operator === 'minus') {
+      return parseInt(leftOperand) - parseInt(rightOperand)
+    } else if (operator === 'multiply') {
+      return parseInt(leftOperand) * parseInt(rightOperand)
+    } else if (operator === 'divide') {
+      return parseInt(leftOperand) / parseInt(rightOperand)
+    }
   }
 
   render() {
     return (
       <div className='calculator'>
-        <div className='ui-result'>{this.state.expression}</div>
+        <div className='ui-result'>{this.state.currentOuput}</div>
         <div className='ui-inputs'>
           <CalculatorKey
             label='Clear'
@@ -45,7 +79,7 @@ export default class Calculator extends Component {
           <CalculatorKey
             charCode='247'
             keyPress='divide'
-            onClick={this.handleOnClickOperand}
+            onClick={this.handleOnClickOperator}
           />
 
           <CalculatorKey
@@ -66,7 +100,7 @@ export default class Calculator extends Component {
           <CalculatorKey
             charCode='215'
             keyPress='multiply'
-            onClick={this.handleOnClickOperand}
+            onClick={this.handleOnClickOperator}
           />
 
           <CalculatorKey
@@ -87,7 +121,7 @@ export default class Calculator extends Component {
           <CalculatorKey
             charCode='8722'
             keyPress='minus'
-            onClick={this.handleOnClickOperand}
+            onClick={this.handleOnClickOperator}
           />
 
           <CalculatorKey
@@ -108,7 +142,7 @@ export default class Calculator extends Component {
           <CalculatorKey
             charCode='43'
             keyPress='add'
-            onClick={this.handleOnClickOperand}
+            onClick={this.handleOnClickOperator}
           />
 
           <CalculatorKey />
@@ -120,7 +154,7 @@ export default class Calculator extends Component {
           <CalculatorKey
             charCode='8729'
             keyPress='decimal'
-            onClick={this.handleOnClickOperand}
+            onClick={this.handleOnClickOperator}
           />
           <CalculatorKey charCode='61' onClick={this.handleOnCalculate} />
         </div>
