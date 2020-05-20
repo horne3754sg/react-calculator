@@ -38,8 +38,6 @@ export default class Calculator extends Component {
     this.setState({
       currentOuput: result,
       leftOperand: result,
-      rightOperand: 0,
-      operator: null,
     })
   }
 
