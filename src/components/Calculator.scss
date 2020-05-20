@@ -1,5 +1,28 @@
 .calculator {
-  .inputs {
+  margin: 0 auto;
+  max-width: 300px;
+
+  .ui-result {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    background: #222;
+    color: #fff;
+    padding: 20px;
+  }
+
+  .ui-inputs {
     display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: auto;
+
+    .calculator-keys {
+      padding: 10px;
+
+      &.clear-key {
+        grid-column-start: 1;
+        grid-column-end: 4;
+      }
+    }
   }
 }

@@ -1,38 +1,73 @@
 import React, { Component } from 'react'
+import { CalculatorKey } from '../utils/CalculatorKey'
 import './Calculator.scss'
 
 export default class Calculator extends Component {
   constructor(props) {
     super(props)
-    this.state = {}
+    this.state = {
+      result: 0,
+    }
   }
 
-  handleOnClick = () => {}
+  handleOnClick = (e) => {
+    const keyPressed = e.target.value
+    console.log(keyPressed)
+  }
 
-  renderButton = (text) => {
-    return <button>{text}</button>
+  handleOnClear = () => {
+    this.setState({ result: 0 })
+  }
+
+  renderInputKey = (text, classStr) => {
+    const classes = classStr ? `calculator-keys ${classStr}` : 'calculator-keys'
+    return (
+      <button className={classes} value={text} onClick={this.handleOnClick}>
+        {text}
+      </button>
+    )
+  }
+
+  renderOperandKey = (text, classStr) => {
+    const classes = classStr ? `calculator-keys ${classStr}` : 'calculator-keys'
+    return (
+      <button className={classes} value={text} onClick={this.handleOnClick}>
+        {text}
+      </button>
+    )
   }
 
   render() {
     return (
       <div className='calculator'>
-        <div className='result'></div>
-        <div className='inputs'>
-          {this.renderButton('Clear')}
-          {this.renderButton(String.fromCharCode(247))}
-          {this.renderButton('7')}
-          {this.renderButton('8')}
-          {this.renderButton('9')}
-          {this.renderButton(String.fromCharCode(215))}
-          {this.renderButton('4')}
-          {this.renderButton('5')}
-          {this.renderButton('6')}
-          {this.renderButton(String.fromCharCode(8722))}
-          {this.renderButton('1')}
-          {this.renderButton('2')}
-          {this.renderButton('3')}
-          {this.renderButton(String.fromCharCode(43))}
-          {this.renderButton(String.fromCharCode(61))}
+        <div className='ui-result'>{this.state.result}</div>
+        <div className='ui-inputs'>
+          <CalculatorKey
+            text='Clear'
+            classes='clear-key'
+            onClick={this.handleOnClear}
+          />
+          <CalculatorKey charCode='247' onClick={this.handleOnClick} />
+
+          <CalculatorKey text='7' onClick={this.handleOnClick} />
+          <CalculatorKey text='8' onClick={this.handleOnClick} />
+          <CalculatorKey text='9' onClick={this.handleOnClick} />
+          <CalculatorKey charCode='215' onClick={this.handleOnClick} />
+
+          <CalculatorKey text='4' onClick={this.handleOnClick} />
+          <CalculatorKey text='5' onClick={this.handleOnClick} />
+          <CalculatorKey text='6' onClick={this.handleOnClick} />
+          <CalculatorKey charCode='8722' onClick={this.handleOnClick} />
+
+          <CalculatorKey text='1' onClick={this.handleOnClick} />
+          <CalculatorKey text='2' onClick={this.handleOnClick} />
+          <CalculatorKey text='3' onClick={this.handleOnClick} />
+          <CalculatorKey charCode='43' onClick={this.handleOnClick} />
+
+          <CalculatorKey text='0' onClick={this.handleOnClick} />
+          <CalculatorKey charCode='8729' onClick={this.handleOnClick} />
+          <CalculatorKey text='AC' onClick={this.handleOnClick} />
+          <CalculatorKey charCode='61' onClick={this.handleOnClick} />
         </div>
       </div>
     )
