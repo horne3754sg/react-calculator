@@ -1,13 +1,14 @@
 import React from 'react'
 
 export function CalculatorKey(props) {
-  let classes = props.classes
-    ? `calculator-keys ${props.classes}`
-    : 'calculator-keys'
-  let text = props.charCode ? String.fromCharCode(props.charCode) : props.text
+  const { label, charCode, classes, onClick, keyPress } = props
+  let classNames = classes ? `calculator-keys ${classes}` : 'calculator-keys'
+  let text = props.charCode ? String.fromCharCode(charCode) : label
 
   return (
-    <button className={classes} value={text} onClick={props.onClick}>
+    <button
+      className={classNames}
+      onClick={onClick ? () => onClick(keyPress || '') : null}>
       {text}
     </button>
   )
