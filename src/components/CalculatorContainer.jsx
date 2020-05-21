@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import Calculator from './Calculator'
+import { CalculateOperations } from '../utils/CalculateOperations'
 import './Calculator.scss'
 
 export default class CalculatorContainer extends Component {
@@ -11,6 +12,7 @@ export default class CalculatorContainer extends Component {
       leftOperand: 0,
       rightOperand: 0,
       operator: null,
+      newOperation: false,
     }
   }
 
@@ -38,7 +40,11 @@ export default class CalculatorContainer extends Component {
     // if we press a number while setting the right operand, we reset the left operand and assign
     // the new keypress value to the right operand
     // this allows us to perform new operations on the original left operand
-    if (operand === 'rightOperand' && keyPress.match(/^[0-9]/g)) {
+    if (
+      !this.state.newOperation &&
+      operand === 'rightOperand' &&
+      keyPress.match(/^[0-9]/g)
+    ) {
       displayValue = keyPress
       this.setState({ leftOperand: this.state.initialLeftOperand })
     }
@@ -51,7 +57,8 @@ export default class CalculatorContainer extends Component {
    * so we set rightOperand to 0
    */
   handleOnClickOperator = (keyPress) => {
-    this.setState({ operator: keyPress, rightOperand: 0 })
+    if (this.state.newOperation) this.handleOnCalculate()
+    this.setState({ operator: keyPress, rightOperand: 0, newOperation: true })
   }
 
   /**
@@ -64,6 +71,7 @@ export default class CalculatorContainer extends Component {
       leftOperand: 0,
       rightOperand: 0,
       operator: null,
+      newOperation: false,
     })
   }
 
@@ -73,28 +81,17 @@ export default class CalculatorContainer extends Component {
    * We can only run this if we have an operator and rightOperand
    */
   handleOnCalculate = () => {
+    const { operator, leftOperand, rightOperand } = this.state
     if (this.state.operator && this.state.rightOperand) {
-      let result = this.getResult()
+      let result = CalculateOperations[operator](
+        Number(leftOperand),
+        Number(rightOperand)
+      )
       this.setState({
         displayValue: result,
         leftOperand: result,
+        newOperation: false,
       })
-    }
-  }
-
-  /**
-   * Determines which operation to perform
-   */
-  getResult = () => {
-    const { leftOperand, rightOperand, operator } = this.state
-    if (operator === 'add') {
-      return leftOperand + rightOperand
-    } else if (operator === 'minus') {
-      return leftOperand - rightOperand
-    } else if (operator === 'multiply') {
-      return leftOperand * rightOperand
-    } else if (operator === 'divide') {
-      return leftOperand / rightOperand
     }
   }
 
