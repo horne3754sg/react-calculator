@@ -6,7 +6,8 @@ export default class CalculatorContainer extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      currentOuput: 0,
+      displayValue: 0,
+      initialLeftOperand: 0,
       leftOperand: 0,
       rightOperand: 0,
       operator: null,
@@ -20,19 +21,29 @@ export default class CalculatorContainer extends Component {
    * based on whether an operator is selected
    */
   handleOnClickInput = (keyPress) => {
-    let currentOuput = this.state.currentOuput
+    let displayValue = this.state.displayValue
+    let operand = this.state.operator === null ? 'leftOperand' : 'rightOperand'
 
-    if (this.state.operator === null) {
-      let leftOperand = `${this.state.leftOperand || ''}${keyPress}`
-      currentOuput = leftOperand
-      this.setState({ leftOperand })
-    } else {
-      let rightOperand = `${this.state.rightOperand || ''}${keyPress}`
-      currentOuput = rightOperand
-      this.setState({ rightOperand })
+    // we only want one decimal
+    if (keyPress === '.' && this.state[operand].toString().match(/\./g)) return
+
+    // add the pressed key value to the operand
+    displayValue = `${this.state[operand] || ''}${keyPress}`
+
+    // set the initial left operand value
+    if (operand === 'leftOperand') {
+      this.setState({ initialLeftOperand: displayValue })
     }
 
-    this.setState({ currentOuput })
+    // if we press a number while setting the right operand, we reset the left operand and assign
+    // the new keypress value to the right operand
+    // this allows us to perform new operations on the original left operand
+    if (operand === 'rightOperand' && keyPress.match(/^[0-9]/g)) {
+      displayValue = keyPress
+      this.setState({ leftOperand: this.state.initialLeftOperand })
+    }
+
+    this.setState({ displayValue, [operand]: displayValue })
   }
 
   /**
@@ -48,7 +59,8 @@ export default class CalculatorContainer extends Component {
    */
   handleOnClear = () => {
     this.setState({
-      currentOuput: 0,
+      displayValue: 0,
+      initialLeftOperand: 0,
       leftOperand: 0,
       rightOperand: 0,
       operator: null,
@@ -64,7 +76,7 @@ export default class CalculatorContainer extends Component {
     if (this.state.operator && this.state.rightOperand) {
       let result = this.getResult()
       this.setState({
-        currentOuput: result,
+        displayValue: result,
         leftOperand: result,
       })
     }
@@ -76,20 +88,20 @@ export default class CalculatorContainer extends Component {
   getResult = () => {
     const { leftOperand, rightOperand, operator } = this.state
     if (operator === 'add') {
-      return parseInt(leftOperand) + parseInt(rightOperand)
+      return leftOperand + rightOperand
     } else if (operator === 'minus') {
-      return parseInt(leftOperand) - parseInt(rightOperand)
+      return leftOperand - rightOperand
     } else if (operator === 'multiply') {
-      return parseInt(leftOperand) * parseInt(rightOperand)
+      return leftOperand * rightOperand
     } else if (operator === 'divide') {
-      return parseInt(leftOperand) / parseInt(rightOperand)
+      return leftOperand / rightOperand
     }
   }
 
   render() {
     return (
       <Calculator
-        currentOuput={this.state.currentOuput}
+        displayValue={this.state.displayValue}
         onClickInput={this.handleOnClickInput}
         onClickOperator={this.handleOnClickOperator}
         onClear={this.handleOnClear}

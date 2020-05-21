@@ -4,7 +4,7 @@ import CalculatorKeypad from './CalculatorKeypad'
 const Calculator = (props) => {
   return (
     <div className='calculator'>
-      <div className='ui-result'>{props.currentOuput}</div>
+      <div className='ui-result'>{props.displayValue}</div>
       <CalculatorKeypad
         onClickInput={props.onClickInput}
         onClickOperator={props.onClickOperator}

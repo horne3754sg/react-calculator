@@ -43,11 +43,7 @@ const CalculatorKeypad = (props) => {
 
       <CalculatorKey />
       <CalculatorKey label='0' keyPress='0' onClick={onClickInput} />
-      <CalculatorKey
-        charCode='8729'
-        keyPress='decimal'
-        onClick={onClickOperator}
-      />
+      <CalculatorKey charCode='8729' keyPress='.' onClick={onClickInput} />
       <CalculatorKey charCode='61' onClick={onCalculate} />
     </div>
   )
