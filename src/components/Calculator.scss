@@ -1,6 +1,9 @@
 .calculator {
   margin: 0 auto;
   max-width: 300px;
+  border: 1px solid #d9d9d9;
+  background: #f2f2f2;
+  padding: 10px;
 
   .calculator-display {
     display: flex;
@@ -9,6 +12,7 @@
     background: #222;
     color: #fff;
     padding: 20px;
+    font-family: Arial, Helvetica, sans-serif;
     font-size: 2em;
     margin-bottom: 5px;
   }
@@ -37,6 +41,10 @@
 
       &.active {
         background: #fff;
+      }
+
+      &:active {
+        background-color: #d9d9d9;
       }
     }
   }
