@@ -1,6 +1,6 @@
 import React from 'react'
 
-export function CalculatorKey(props) {
+const CalculatorKey = (props) => {
   const { label, charCode, classes, onClick, keyPress } = props
   let classNames = classes ? `calculator-keys ${classes}` : 'calculator-keys'
   let text = charCode ? String.fromCharCode(charCode) : label
@@ -13,3 +13,5 @@ export function CalculatorKey(props) {
     </button>
   )
 }
+
+export default CalculatorKey

@@ -1,11 +1,11 @@
 import React from 'react'
-import Calculator from './components/Calculator'
+import CalculatorContainer from './components/CalculatorContainer'
 import './App.scss'
 
 function App() {
   return (
     <div className='App'>
-      <Calculator />
+      <CalculatorContainer />
     </div>
   )
 }
