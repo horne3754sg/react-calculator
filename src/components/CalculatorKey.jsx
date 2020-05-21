@@ -5,6 +5,8 @@ const CalculatorKey = (props) => {
   let classNames = classes ? `calculator-keys ${classes}` : 'calculator-keys'
   let text = charCode ? String.fromCharCode(charCode) : label
 
+  if (props.isActive) classNames += ' active'
+
   return (
     <button className={classNames} onClick={onClick ? onClick : null}>
       {text}

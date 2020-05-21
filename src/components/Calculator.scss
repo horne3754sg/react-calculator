@@ -2,7 +2,7 @@
   margin: 0 auto;
   max-width: 300px;
 
-  .ui-result {
+  .calculator-display {
     display: flex;
     align-items: center;
     justify-content: flex-end;
@@ -10,19 +10,33 @@
     color: #fff;
     padding: 20px;
     font-size: 2em;
+    margin-bottom: 5px;
   }
 
   .calculator-keypad {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     grid-template-rows: auto;
+    grid-gap: 5px;
 
     .calculator-keys {
       padding: 10px;
+      background-color: #f7f7f7;
+      border: 1px solid rgba(0, 0, 0, 0.1);
+      outline: none;
+
+      &.operator-key {
+        background-color: #ff7f50;
+        border-color: darken(#ff7f50, 10%);
+      }
 
       &.clear-key {
         grid-column-start: 1;
         grid-column-end: 4;
+      }
+
+      &.active {
+        background: #fff;
       }
     }
   }
