@@ -57,6 +57,7 @@ export default class CalculatorContainer extends Component {
    * so we set rightOperand to 0
    */
   handleOnClickOperator = (keyPress) => {
+    // if we click on another operator, calculate the current result
     if (this.state.newOperation) this.handleOnCalculate()
     this.setState({ operator: keyPress, rightOperand: 0, newOperation: true })
   }
@@ -99,6 +100,7 @@ export default class CalculatorContainer extends Component {
     return (
       <Calculator
         displayValue={this.state.displayValue}
+        operator={this.state.operator}
         onClickInput={this.handleOnClickInput}
         onClickOperator={this.handleOnClickOperator}
         onClear={this.handleOnClear}

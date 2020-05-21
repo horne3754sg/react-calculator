@@ -5,12 +5,7 @@ const Calculator = (props) => {
   return (
     <div className='calculator'>
       <div className='ui-result'>{props.displayValue}</div>
-      <CalculatorKeypad
-        onClickInput={props.onClickInput}
-        onClickOperator={props.onClickOperator}
-        onClear={props.onClear}
-        onCalculate={props.onCalculate}
-      />
+      <CalculatorKeypad {...props} />
     </div>
   )
 }
