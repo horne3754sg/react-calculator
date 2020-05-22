@@ -1,13 +1,11 @@
 import React from 'react'
-import { TextScaler } from '../utils/TextScaler'
+import { CalculatorDisplay } from './CalculatorDisplay'
 import CalculatorKeypad from './CalculatorKeypad'
 
 const Calculator = (props) => {
   return (
     <div className='calculator'>
-      <div className='calculator-display'>
-        <TextScaler>{props.displayValue}</TextScaler>
-      </div>
+      <CalculatorDisplay value={props.displayValue} />
       <CalculatorKeypad {...props} />
     </div>
   )

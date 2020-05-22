@@ -1,0 +1,8 @@
+.auto-scaling-text {
+  display: inline-block;
+  transform-origin: left;
+
+  &.origin-right {
+    transform-origin: right;
+  }
+}
