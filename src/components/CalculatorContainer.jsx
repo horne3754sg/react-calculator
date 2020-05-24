@@ -3,6 +3,11 @@ import Calculator from './Calculator'
 import { CalculateOperations } from '../utils/CalculateOperations'
 import './Calculator.scss'
 
+/**
+ * CalculatorContainer manages the state and methods for updating the state
+ *
+ * The handlers are split according to type {Input, Operator, Clear, Calculate}
+ */
 export default class CalculatorContainer extends Component {
   constructor(props) {
     super(props)
@@ -41,8 +46,8 @@ export default class CalculatorContainer extends Component {
     // the new keypress value to the right operand
     // this allows us to perform new operations on the original left operand
     if (
-      !this.state.newOperation &&
       operand === 'rightOperand' &&
+      !this.state.newOperation &&
       keyPress.match(/^[0-9]/g)
     ) {
       displayValue = keyPress
