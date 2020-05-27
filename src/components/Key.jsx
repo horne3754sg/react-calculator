@@ -1,15 +1,16 @@
 import React from 'react'
 
+import './Key.scss'
+
 const CalculatorKey = (props) => {
-  const { label, charCode, classes, onClick } = props
-  let classNames = classes ? `calculator-keys ${classes}` : 'calculator-keys'
-  let text = charCode ? String.fromCharCode(charCode) : label
+  const { label, classes, onClick } = props
+  let classNames = classes ? `key ${classes}` : 'key'
 
   if (props.isActive) classNames += ' active'
 
   return (
     <button className={classNames} onClick={onClick ? onClick : null}>
-      {text}
+      {label}
     </button>
   )
 }

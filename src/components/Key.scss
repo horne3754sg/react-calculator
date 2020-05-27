@@ -1,0 +1,33 @@
+.key {
+  align-items: center;
+  display: flex;
+  width: calc(100% / 3);
+  justify-content: center;
+  transition: background-color 0.3s linear;
+
+  padding: 10px;
+  background-color: #f7f7f7;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  outline: none;
+
+  &.operator-key {
+    width: 100%;
+    background-color: #ff7f50;
+    border-color: darken(#ff7f50, 10%);
+  }
+
+  &.clear-key {
+  }
+
+  &.equals-key {
+    width: 100%;
+  }
+
+  &.active {
+    background: #fff;
+  }
+
+  &:active {
+    background-color: #d9d9d9;
+  }
+}
