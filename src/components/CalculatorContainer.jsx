@@ -59,7 +59,7 @@ export default class CalculatorContainer extends Component {
 
   /**
    * Clicking an operator is considered to be a new calculation,
-   * so we set rightOperand to 0
+   * so we set rightOperand to 0 and newOperation to true
    */
   handleOnClickOperator = (keyPress) => {
     // if we click on another operator, calculate the current result
