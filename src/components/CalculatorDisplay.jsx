@@ -4,7 +4,9 @@ import TextScaler from '../utils/TextScaler'
 export const CalculatorDisplay = (props) => {
   return (
     <div className='calculator-display'>
-      <TextScaler className='origin-right'>{props.value}</TextScaler>
+      <TextScaler data-testid='display' className='origin-right'>
+        {props.value}
+      </TextScaler>
     </div>
   )
 }

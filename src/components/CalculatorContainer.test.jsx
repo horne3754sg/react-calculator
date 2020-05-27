@@ -1,32 +1,28 @@
 import React from 'react'
-import { shallow } from 'enzyme'
+import { shallow, mount } from 'enzyme'
 import renderer from 'react-test-renderer'
 
 import CalculatorContainer from './CalculatorContainer'
 import Calculator from './Calculator'
+import CalculatorDisplay from './CalculatorDisplay'
 
 describe('<CalculatorContainer />', () => {
-  it('mathes the snapshot', () => {
-    const CalculatorContainerComponent = renderer
-      .create(<CalculatorContainer />)
-      .toJSON()
-    expect(CalculatorContainerComponent).toMatchSnapshot()
+  // create a snapshot
+  it('renders correct <CalculatorContainer />', () => {
+    const component = renderer.create(<CalculatorContainer />).toJSON()
+    expect(component).toMatchSnapshot()
   })
 
-  it('renders <Calculator />', () => {
-    const component = shallow(<CalculatorContainer />)
-    expect(component.find(Calculator)).toHaveLength(1)
+  // Test props
+  it('correctly passes displayValue to <CalculatorDisplay />', () => {
+    const props = {
+      displayValue: 0,
+      operator: null,
+    }
+    const component = mount(<CalculatorContainer {...props} />)
+    console.log(component.debug())
+    expect(component.prop('displayValue')).toBe(
+      component.find(CalculatorDisplay).prop('value')
+    )
   })
-
-  // handleOnClickInput
-  it('updates left/right operands when inputs are clicked', () => {})
-
-  // handleOnClickOperator
-  it('updates the operator', () => {})
-
-  // handleOnClear
-  it('resets the calculator back to default state when clear is clicked', () => {})
-
-  // handleOnCalculate
-  it('calculates', () => {})
 })
